@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('quickstart.urls')),
     path('', include('snippets.urls')),
+    path('auth-api/',include('rest_framework.urls'))
 ]
