@@ -38,9 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'quickstart',
     'rest_framework',
+    'Music',
     'snippets',
+    'django_filters',
     'rest_framework.authtoken',
 ]
 
@@ -130,5 +131,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS' : 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE' : 10
+    # 'PAGE_SIZE' : 10,
+    'DEFAULT_THROTTLE_CLASSES' : [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES' : {
+        'anon' : '2/day',
+        'user' : '5/minute'
+    },
+    'DEFAULT_FILTER_BACKENDS' : ['django_filters.rest_framework.DjangoFilterBackend'],
 }
