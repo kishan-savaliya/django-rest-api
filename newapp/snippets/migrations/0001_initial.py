@@ -15,18 +15,33 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Snippet',
+            name="Snippet",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('title', models.CharField(blank=True, default='', max_length=100)),
-                ('code', models.TextField()),
-                ('linenos', models.BooleanField(default=False)),
-                ('language', models.CharField(default='python', max_length=100)),
-                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='snippet', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created", models.DateTimeField(auto_now_add=True)),
+                ("title", models.CharField(blank=True, default="", max_length=100)),
+                ("code", models.TextField()),
+                ("linenos", models.BooleanField(default=False)),
+                ("language", models.CharField(default="python", max_length=100)),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="snippet",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'ordering': ['created'],
+                "ordering": ["created"],
             },
         ),
     ]
