@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from Music import views
+import Music.views
+from api import views
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -25,8 +26,9 @@ from rest_framework_simplejwt.views import (
 
 router = DefaultRouter()
 
-router.register("singer", views.SingerViewSet, basename="singer")
-router.register("song", views.SongViewSet, basename="song")
+router.register("singer", Music.views.SingerViewSet, basename="singer")
+router.register("song", Music.views.SongViewSet, basename="song")
+router.register("student",views.StudentViewSet,basename="student")
 
 urlpatterns = [
     path("admin/", admin.site.urls),

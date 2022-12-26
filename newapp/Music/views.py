@@ -7,9 +7,17 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.authentication import SessionAuthentication
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
-from .mypagination import ResultSetPagination
-from rest_framework.pagination import PageNumberPagination
+from .mypagination import MyLimitOffsetPagination
+from rest_framework.decorators import api_view
+from rest_framework.reverse import reverse
+from rest_framework.response import Response
 
+@api_view(['GET'])
+def api_root(request,format = None):
+    return Response({
+        'singer' : reverse('singer',request=request,format=format),
+        'song' : reverse('song',request=request,format=format)
+    })
 
 class SingerViewSet(viewsets.ModelViewSet):
 
@@ -22,8 +30,8 @@ class SingerViewSet(viewsets.ModelViewSet):
 
     authentication_classes = [SessionAuthentication]
     permission_classes = [IsAuthenticatedOrReadOnly]
-
-    pagination_class = ResultSetPagination
+    pagination_class = MyLimitOffsetPagination
+    # pagination_class = ResultSetPagination
 
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["name", "gender"]
@@ -46,8 +54,9 @@ class SongViewSet(viewsets.ModelViewSet):
     # throttle_classes = [AnonRateThrottle,UserRateThrottle]
     authentication_classes = [SessionAuthentication]
     permission_classes = [IsAuthenticatedOrReadOnly]
+    pagination_class = MyLimitOffsetPagination
 
-    pagination_class = ResultSetPagination
+    # pagination_class = ResultSetPagination
     # filter_backends = [filters.SearchFilter]
     # search_fields = ['id','title']
 

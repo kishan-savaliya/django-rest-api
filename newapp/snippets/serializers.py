@@ -4,6 +4,11 @@ from django.contrib.auth.models import User
 
 
 class SnippetSerializer(serializers.ModelSerializer):
+
+    """
+    create and return new 'snippet' instance, given the validated data. 
+    """
+
     owner = serializers.ReadOnlyField(source="owner.username")
 
     class Meta:
@@ -13,6 +18,11 @@ class SnippetSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+
+    """
+    create and return new 'user' instance, given the validated data. 
+    """
+
     snippets = serializers.PrimaryKeyRelatedField(
         many=True, queryset=Snippet.objects.all()
     )
